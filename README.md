@@ -1,51 +1,72 @@
 # FILMS Dataset
 
-Public-facing home for the FILMS academic dataset project. This is a static
-HTML, CSS, and JavaScript site designed to deploy on GitHub Pages. Dataset scope,
-background, methodology, and citation details are intentionally not inferred;
-add verified project information when it is available.
+> **Dataset information template:** The verified project description, research
+> details, and data files have not yet been added. Replace the bracketed prompts
+> below with information approved by the dataset maintainers. Do not publish
+> unverified descriptions or data.
 
-## Website files
+## About the dataset
 
-- [`index.html`](index.html) contains the page structure and site content.
-- [`assets/css/styles.css`](assets/css/styles.css) contains layout, visual
-  styling, responsive breakpoints, and reduced-motion behavior.
-- [`assets/js/main.js`](assets/js/main.js) contains the mobile navigation,
-  published-file checks, TSV preview, and data-derived numeric chart.
+[Describe what the dataset contains and the problem or subject it addresses.]
 
-## Preview locally
+### Research objectives
 
-Open `index.html` in a browser to inspect the static page. To test data loading,
-serve the repository directory with a local static web server; browsers may
-restrict `fetch()` when a page is opened directly as a `file://` URL.
+[Explain the research questions or objectives the dataset was created to support.]
 
-## Publish on GitHub Pages
+### Scope and background
 
-1. Add the verified dataset files at `data/dataset.tsv` and
-   `data/dataset.xlsx`. Keep the original data files unchanged.
-2. In the repository's **Settings → Pages**, select deployment from the
-   `main` branch and the repository root, then save.
-3. Wait for the Pages deployment to finish and open the published site URL.
+- **Coverage:** [Describe the population, subject area, or units represented.]
+- **Time period:** [Add the dates or period covered, if applicable.]
+- **Geographic coverage:** [Add locations represented, if applicable.]
+- **Background:** [Summarize how and why the dataset was created.]
 
-The site checks whether each download file exists before enabling its link.
-When the TSV is available, the preview displays its column names and up to
-eight actual records. The visualization generates a histogram from the first
-column whose non-empty values are all numeric. No sample records or chart
-values are embedded in the site.
+## Data files
 
-## Maintain and update
+| File | Description | Format |
+| --- | --- | --- |
+| `data/dataset.tsv` | [Describe the authoritative tab-separated data file.] | TSV |
+| `data/dataset.xlsx` | [Describe the Excel edition, if provided.] | XLSX |
 
-- Replace neither source file in place without preserving the authoritative
-  version. Review and publish data updates through the repository's normal
-  version-control process.
-- If the published filenames change, update `datasetFiles` near the top of
-  `assets/js/main.js`. Keep both files in the repository root's `data/`
-  directory so their URLs work on GitHub Pages project sites.
-- Add verified project background, scope, variable definitions, methodology,
-  and citation details to their corresponding sections in `index.html`.
-- Keep this README aligned with any changes to deployment, file paths, or
-  preview and visualization behavior.
-- Review the site at desktop and mobile widths after content or layout changes.
+[Add download instructions, version details, and any known limitations. Do not
+link to files until they have been added to the repository.]
 
-The website does not upload data to a service. GitHub Pages serves the static
-site and files from this repository.
+## Data preview
+
+[Describe the records and columns using verified information from the published
+dataset. The website preview is generated from the TSV file when it is available.]
+
+## Variables and definitions
+
+[Document each variable, its definition, format, units, and any coding or missing
+value conventions. Add a table when the verified data dictionary is available.]
+
+| Variable | Definition | Format / units | Notes |
+| --- | --- | --- | --- |
+| [Variable name] | [Definition] | [Format or units] | [Coding notes] |
+
+## Methodology
+
+[Describe data sources, collection procedures, inclusion and exclusion criteria,
+processing, quality checks, and any transformations.]
+
+## Visualizations and analysis
+
+[Describe available visualizations or exploratory analyses and how they were
+produced. Distinguish descriptive summaries from inferential results.]
+
+## Citation
+
+[Add the recommended citation using verified creator, title, version, date,
+publisher or repository, and persistent identifier details.]
+
+## Contributions and corrections
+
+[Explain how to report errors, suggest corrections, or propose additional data.
+Include the review process and any provenance, permissions, or documentation
+required for contributions.]
+
+## Access, license, and contact
+
+- **Access conditions:** [Describe who may access or reuse the data.]
+- **License:** [Add the verified data license and link.]
+- **Contact:** [Add the project maintainer or contact method.]
