@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f4ef">
+    <title>FILMS — Research dataset explorer</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #17231f;
+        background: #f5f4ef;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * { box-sizing: border-box; }
+
+      body { margin: 0; min-width: 320px; }
+
+      button, input, select { font: inherit; }
+
+      button {
+        border: 0;
+        border-radius: 8px;
+        padding: 10px 15px;
+        color: #fff;
+        background: #176b55;
+        font-weight: 650;
+        cursor: pointer;
+      }
+
+      button:disabled { opacity: .45; cursor: not-allowed; }
+
+      button:focus-visible, input:focus-visible, select:focus-visible, .drop-zone:focus-within {
+        outline: 3px solid #78bca6;
+        outline-offset: 2px;
+      }
+
+      .page { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+      header {
+        padding: 28px 0 25px;
+        border-bottom: 1px solid #dcded7;
+      }
+
+      .brand { display: flex; align-items: center; gap: 12px; }
+
+      .brand-mark {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        background: #176b55;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: -.06em;
+      }
+
+      .eyebrow {
+        margin: 0 0 3px;
+        color: #557067;
+        font-size: 11px;
+        font-weight: 750;
+        letter-spacing: .13em;
+        text-transform: uppercase;
+      }
+
+      h1 { margin: 0; font-size: 20px; letter-spacing: -.035em; }
+
+      main { padding: 38px 0 60px; }
+
+      .intro { max-width: 700px; margin-bottom: 26px; }
+
+      .intro h2 {
+        margin: 0 0 8px;
+        font-size: clamp(26px, 4vw, 36px);
+        letter-spacing: -.045em;
+      }
+
+      .intro p { margin: 0; color: #5d6863; line-height: 1.6; }
+
+      .drop-zone {
+        display: flex;
+        min-height: 118px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 23px 26px;
+        border: 1px dashed #9baea5;
+        border-radius: 12px;
+        background: #fff;
+      }
+
+      .drop-zone.dragging { border-color: #176b55; background: #eef7f2; }
+
+      .upload-copy { display: flex; align-items: center; gap: 15px; }
+
+      .upload-icon {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        flex: 0 0 42px;
+        place-items: center;
+        border-radius: 11px;
+        background: #e8f2ed;
+        color: #176b55;
+        font-size: 21px;
+      }
+
+      .upload-copy strong { display: block; margin-bottom: 4px; font-size: 14px; }
+      .upload-copy span, .format-note { color: #66736d; font-size: 12px; }
+      .upload-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 14px; }
+      #file-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+      .browse {
+        position: relative;
+        display: inline-block;
+        border: 0;
+        border-radius: 8px;
+        padding: 10px 15px;
+        color: #fff;
+        background: #176b55;
+        font-size: 14px;
+        font-weight: 650;
+        cursor: pointer;
+      }
+
+      .browse:hover { background: #125943; }
+      .browse:focus-within { outline: 3px solid #78bca6; outline-offset: 2px; }
+      .format-note { white-space: nowrap; }
+
+      .notice {
+        margin: 12px 0 0;
+        color: #a23f32;
+        font-size: 13px;
+      }
+
+      .notice:empty { display: none; }
+
+      .workspace { margin-top: 30px; }
+
+      .summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 14px;
+      }
+
+      .dataset-name { min-width: 0; }
+      .dataset-name h3 { overflow: hidden; margin: 0 0 4px; font-size: 17px; text-overflow: ellipsis; white-space: nowrap; }
+      .dataset-name p { margin: 0; color: #68746e; font-size: 12px; }
+      .summary-actions { display: flex; flex: 0 0 auto; gap: 9px; }
+      .secondary { border: 1px solid #cbd4ce; color: #344840; background: #fff; }
+
+      .filters {
+        display: grid;
+        grid-template-columns: minmax(200px, 1fr) minmax(170px, 240px);
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .field {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 10px;
+        padding: 0 13px;
+        border: 1px solid #d7ddd8;
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .field label { flex: 0 0 auto; color: #66736d; font-size: 12px; }
+      .field input, .field select { width: 100%; min-width: 0; padding: 11px 0; border: 0; outline: 0; color: #17231f; background: transparent; }
+      .field input::placeholder { color: #8a9690; }
+      .table-wrap { overflow: auto; border: 1px solid #d7ddd8; border-radius: 10px; background: #fff; }
+      table { width: 100%; border-collapse: collapse; text-align: left; }
+      th, td { max-width: 320px; padding: 13px 15px; border-bottom: 1px solid #edf0ed; font-size: 13px; overflow-wrap: anywhere; }
+      th { color: #53635b; background: #f8faf8; font-size: 11px; font-weight: 750; letter-spacing: .04em; }
+      tbody tr:last-child td { border-bottom: 0; }
+      .empty-state { padding: 38px 16px; color: #66736d; text-align: center; }
+
+      .table-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 13px 2px 0;
+        color: #68746e;
+        font-size: 12px;
+      }
+
+      .pagination { display: flex; align-items: center; gap: 8px; }
+      .pagination button { padding: 7px 11px; font-size: 12px; }
+
+      .privacy-note { margin: 28px 0 0; color: #68746e; font-size: 12px; line-height: 1.6; }
+      .privacy-note strong { color: #43564c; }
+
+      @media (max-width: 680px) {
+        .page { width: min(100% - 28px, 1180px); }
+        header { padding: 20px 0; }
+        main { padding-top: 28px; }
+        .drop-zone, .summary { align-items: flex-start; flex-direction: column; }
+        .upload-actions { width: 100%; justify-content: space-between; }
+        .filters { grid-template-columns: 1fr; }
+        .summary-actions { width: 100%; }
+        .summary-actions button { flex: 1; }
+        .table-footer { align-items: flex-start; flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="page brand">
+        <div class="brand-mark" aria-hidden="true">F</div>
+        <div>
+          <p class="eyebrow">Open research data</p>
+          <h1>FILMS dataset explorer</h1>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="intro" aria-labelledby="page-title">
+        <h2 id="page-title">Find the data for your research.</h2>
+        <p>Load a dataset to search records, focus on a field, and export the subset you need. Your data stays in your browser.</p>
+      </section>
+
+      <section aria-label="Load a dataset">
+        <div class="drop-zone" id="drop-zone">
+          <div class="upload-copy">
+            <div class="upload-icon" aria-hidden="true">↑</div>
+            <div>
+              <strong>Start with a dataset</strong>
+              <span>Choose a file or drag it here</span>
+            </div>
+          </div>
+          <div class="upload-actions">
+            <label class="browse">Choose file
+              <input id="file-input" type="file" accept=".csv,.tsv,.json,text/csv,text/tab-separated-values,application/json">
+            </label>
+            <span class="format-note">CSV, TSV, or JSON</span>
+          </div>
+        </div>
+        <p class="notice" id="notice" role="alert"></p>
+      </section>
+
+      <section class="workspace" id="workspace" aria-label="Dataset browser" hidden>
+        <div class="summary">
+          <div class="dataset-name">
+            <h3 id="dataset-title"></h3>
+            <p id="dataset-meta"></p>
+          </div>
+          <div class="summary-actions">
+            <button type="button" class="secondary" id="clear-button">Clear dataset</button>
+            <button type="button" id="export-button">Export results</button>
+          </div>
+        </div>
+
+        <div class="filters">
+          <div class="field">
+            <label for="search-input">Search</label>
+            <input id="search-input" type="search" placeholder="Search all fields…" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="column-select">In field</label>
+            <select id="column-select" aria-label="Limit search to a field">
+              <option value="">All fields</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead id="table-head"></thead>
+            <tbody id="table-body"></tbody>
+          </table>
+          <div class="empty-state" id="empty-state" hidden>No records match your search.</div>
+        </div>
+
+        <div class="table-footer">
+          <span id="result-count" aria-live="polite"></span>
+          <div class="pagination">
+            <button type="button" class="secondary" id="previous-button">Previous</button>
+            <span id="page-label"></span>
+            <button type="button" class="secondary" id="next-button">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <p class="privacy-note"><strong>Researcher-first by design.</strong> Files are read locally and never uploaded. Search, field selection, and export work entirely in this browser.</p>
+    </main>
+
+    <script>
+      (() => {
+        const pageSize = 25;
+        const fileInput = document.querySelector("#file-input");
+        const dropZone = document.querySelector("#drop-zone");
+        const notice = document.querySelector("#notice");
+        const workspace = document.querySelector("#workspace");
+        const searchInput = document.querySelector("#search-input");
+        const columnSelect = document.querySelector("#column-select");
+        const head = document.querySelector("#table-head");
+        const body = document.querySelector("#table-body");
+        const emptyState = document.querySelector("#empty-state");
+        const resultCount = document.querySelector("#result-count");
+        const pageLabel = document.querySelector("#page-label");
+        const previousButton = document.querySelector("#previous-button");
+        const nextButton = document.querySelector("#next-button");
+        const exportButton = document.querySelector("#export-button");
+        const clearButton = document.querySelector("#clear-button");
+        let columns = [];
+        let records = [];
+        let fileName = "";
+        let page = 0;
+
+        const displayValue = (value) => {
+          if (value === null || value === undefined) return "";
+          return typeof value === "object" ? JSON.stringify(value) : String(value);
+        };
+
+        function parseDelimited(text, delimiter) {
+          const rows = [];
+          let row = [];
+          let value = "";
+          let quoted = false;
+
+          for (let index = 0; index < text.length; index += 1) {
+            const character = text[index];
+            if (quoted) {
+              if (character === '"' && text[index + 1] === '"') {
+                value += '"';
+                index += 1;
+              } else if (character === '"') {
+                quoted = false;
+              } else {
+                value += character;
+              }
+            } else if (character === '"' && value.length === 0) {
+              quoted = true;
+            } else if (character === delimiter) {
+              row.push(value);
+              value = "";
+            } else if (character === "\n" || character === "\r") {
+              if (character === "\r" && text[index + 1] === "\n") index += 1;
+              row.push(value);
+              if (row.some((cell) => cell !== "")) rows.push(row);
+              row = [];
+              value = "";
+            } else {
+              value += character;
+            }
+          }
+
+          if (quoted) throw new Error("The file contains an unclosed quoted field.");
+          row.push(value);
+          if (row.some((cell) => cell !== "")) rows.push(row);
+          if (!rows.length) throw new Error("The file does not contain any records.");
+
+          const headerRow = rows.shift();
+          const usedNames = new Set();
+          const names = headerRow.map((header, index) => {
+            const base = header.trim() || `Column ${index + 1}`;
+            let name = base;
+            let suffix = 2;
+            while (usedNames.has(name)) {
+              name = `${base} (${suffix})`;
+              suffix += 1;
+            }
+            usedNames.add(name);
+            return name;
+          });
+          const width = Math.max(names.length, ...rows.map((dataRow) => dataRow.length));
+          for (let index = names.length; index < width; index += 1) {
+            names.push(`Column ${index + 1}`);
+          }
+          return {
+            columns: names,
+            records: rows.map((dataRow) => names.map((_, index) => dataRow[index] ?? ""))
+          };
+        }
+
+        function parseJson(text) {
+          const parsed = JSON.parse(text);
+          if (!Array.isArray(parsed) || parsed.length === 0 || parsed.some((row) => row === null || typeof row !== "object" || Array.isArray(row))) {
+            throw new Error("JSON must contain a non-empty array of objects.");
+          }
+          const names = [...new Set(parsed.flatMap((row) => Object.keys(row)))];
+          if (!names.length) throw new Error("The JSON records do not contain any fields.");
+          return {
+            columns: names,
+            records: parsed.map((row) => names.map((name) => displayValue(row[name])))
+          };
+        }
+
+        function getFilteredRecords() {
+          const query = searchInput.value.trim().toLocaleLowerCase();
+          const selectedColumn = columnSelect.value;
+          if (!query) return records;
+          const columnIndex = selectedColumn === "" ? -1 : Number(selectedColumn);
+          return records.filter((record) => {
+            const values = columnIndex < 0 ? record : [record[columnIndex]];
+            return values.some((value) => displayValue(value).toLocaleLowerCase().includes(query));
+          });
+        }
+
+        function render() {
+          const filteredRecords = getFilteredRecords();
+          const pageCount = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+          page = Math.min(page, pageCount - 1);
+          const visibleRecords = filteredRecords.slice(page * pageSize, (page + 1) * pageSize);
+
+          const headerRow = document.createElement("tr");
+          columns.forEach((column) => {
+            const cell = document.createElement("th");
+            cell.scope = "col";
+            cell.textContent = column;
+            headerRow.append(cell);
+          });
+          head.replaceChildren(headerRow);
+
+          body.replaceChildren();
+          visibleRecords.forEach((record) => {
+            const row = document.createElement("tr");
+            columns.forEach((_, index) => {
+              const cell = document.createElement("td");
+              cell.textContent = displayValue(record[index]);
+              row.append(cell);
+            });
+            body.append(row);
+          });
+
+          const start = filteredRecords.length ? page * pageSize + 1 : 0;
+          const end = Math.min((page + 1) * pageSize, filteredRecords.length);
+          resultCount.textContent = `${start}–${end} of ${filteredRecords.length} matching records · ${records.length} total`;
+          pageLabel.textContent = `Page ${page + 1} of ${pageCount}`;
+          previousButton.disabled = page === 0;
+          nextButton.disabled = page >= pageCount - 1;
+          exportButton.disabled = filteredRecords.length === 0;
+          emptyState.hidden = filteredRecords.length !== 0;
+          document.querySelector(".table-wrap table").hidden = filteredRecords.length === 0;
+        }
+
+        async function loadFile(file) {
+          notice.textContent = "";
+          try {
+            const extension = file.name.split(".").pop().toLowerCase();
+            if (!["csv", "tsv", "json"].includes(extension)) {
+              throw new Error("Choose a CSV, TSV, or JSON file.");
+            }
+            const text = await file.text();
+            const dataset = extension === "json"
+              ? parseJson(text)
+              : parseDelimited(text, extension === "tsv" ? "\t" : ",");
+            columns = dataset.columns;
+            records = dataset.records;
+            fileName = file.name;
+            page = 0;
+            document.querySelector("#dataset-title").textContent = fileName;
+            document.querySelector("#dataset-meta").textContent = `${records.length} records · ${columns.length} fields`;
+            columnSelect.replaceChildren(new Option("All fields", ""));
+            columns.forEach((column, index) => columnSelect.add(new Option(column, String(index))));
+            searchInput.value = "";
+            workspace.hidden = false;
+            render();
+          } catch (error) {
+            notice.textContent = error instanceof Error ? error.message : "The dataset could not be read.";
+          }
+        }
+
+        function clearDataset() {
+          columns = [];
+          records = [];
+          fileName = "";
+          fileInput.value = "";
+          workspace.hidden = true;
+          notice.textContent = "";
+        }
+
+        function escapeCsv(value) {
+          const text = displayValue(value);
+          return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+        }
+
+        fileInput.addEventListener("change", () => {
+          if (fileInput.files[0]) loadFile(fileInput.files[0]);
+        });
+        searchInput.addEventListener("input", () => { page = 0; render(); });
+        columnSelect.addEventListener("change", () => { page = 0; render(); });
+        previousButton.addEventListener("click", () => { page -= 1; render(); });
+        nextButton.addEventListener("click", () => { page += 1; render(); });
+        clearButton.addEventListener("click", clearDataset);
+
+        exportButton.addEventListener("click", () => {
+          const output = [columns, ...getFilteredRecords()]
+            .map((row) => row.map(escapeCsv).join(","))
+            .join("\r\n");
+          const url = URL.createObjectURL(new Blob([`\uFEFF${output}`], { type: "text/csv;charset=utf-8" }));
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = `${fileName.replace(/\.[^.]+$/, "")}-results.csv`;
+          link.click();
+          URL.revokeObjectURL(url);
+        });
+
+        ["dragenter", "dragover"].forEach((eventName) => {
+          dropZone.addEventListener(eventName, (event) => {
+            event.preventDefault();
+            dropZone.classList.add("dragging");
+          });
+        });
+        ["dragleave", "drop"].forEach((eventName) => {
+          dropZone.addEventListener(eventName, (event) => {
+            event.preventDefault();
+            dropZone.classList.remove("dragging");
+          });
+        });
+        dropZone.addEventListener("drop", (event) => {
+          const file = event.dataTransfer.files[0];
+          if (file) loadFile(file);
+        });
+      })();
+    </script>
+  </body>
+</html>
