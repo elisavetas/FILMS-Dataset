@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f3ed">
+    <meta name="description" content="The FILMS academic dataset project. Explore available data, documentation, visualizations, and citation guidance.">
+    <title>FILMS Dataset | Research data</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/main.js" defer></script>
+  </head>
+  <body>
+    <div class="topline" aria-hidden="true"></div>
+    <header class="site-header">
+      <div class="container nav-shell">
+        <a class="wordmark" href="#home" aria-label="FILMS Dataset home">
+          <span class="wordmark-mark" aria-hidden="true">F</span>
+          <span class="wordmark-copy">
+            <strong>FILMS Dataset</strong>
+            <span>Open research data</span>
+          </span>
+        </a>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#data">Data</a>
+          <a href="#documentation">Documentation</a>
+          <a href="#visualizations">Visualizations</a>
+          <a href="#citation">Citation</a>
+          <a href="#contributions">Contribute</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="container hero-inner">
+          <p class="eyebrow">An academic dataset project</p>
+          <h1>Research begins<br>with <em>good data.</em></h1>
+          <p class="hero-copy">Welcome to the FILMS dataset project. This site is a public home for the dataset, its documentation, and tools for exploring the published data. Dataset scope and research objectives will be added when verified project information is available.</p>
+          <div class="hero-links">
+            <a class="button" href="#data">Explore the data <span aria-hidden="true">↓</span></a>
+            <a class="button secondary" href="#about">About this project</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">01 / About</p>
+              <h2>A resource for<br>researchers.</h2>
+            </div>
+            <p class="section-lead">FILMS is an open-source dataset project intended to make research data easier to access. Verified details about the dataset’s scope, background, and research objectives have not yet been provided.</p>
+          </div>
+          <div class="about-grid">
+            <div class="prose">
+              <p>This site is designed to make the project’s data and supporting materials easy to find, inspect, and cite. It will grow as the dataset and its documentation are published.</p>
+              <p>To avoid misrepresenting the research, this page does not infer a subject area, collection period, population, or methodology. Consult the project maintainers for authoritative information until those details are documented here.</p>
+            </div>
+            <aside class="fact-card">
+              <h3>Project information</h3>
+              <p>Dataset scope and background are awaiting verified project documentation. No records are currently included in this repository.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt" id="data">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">02 / Data access</p>
+              <h2>Get the data.</h2>
+            </div>
+            <p class="section-lead">Download the published files or inspect a small preview before using the data. The original source files should be preserved when new versions are published.</p>
+          </div>
+
+          <div class="data-grid">
+            <article class="download-card">
+              <div>
+                <span class="file-type">TSV · TAB-SEPARATED</span>
+                <h3>Research data</h3>
+                <p>Tab-separated values for analysis in research tools and spreadsheets.</p>
+              </div>
+              <a class="button" id="tsv-download" aria-disabled="true">Not published yet</a>
+            </article>
+            <article class="download-card">
+              <div>
+                <span class="file-type">XLSX · EXCEL</span>
+                <h3>Spreadsheet edition</h3>
+                <p>Excel workbook for browsing the published dataset.</p>
+              </div>
+              <a class="button secondary" id="excel-download" aria-disabled="true">Not published yet</a>
+            </article>
+          </div>
+          <p class="data-status" id="data-status" role="status">Dataset files are not included yet. Download links, preview columns, and charts will become available when the verified TSV and Excel files are published.</p>
+
+          <div class="preview-shell">
+            <div class="preview-toolbar">
+              <strong>Dataset preview</strong>
+              <span id="preview-count">Waiting for the published TSV file</span>
+            </div>
+            <div class="preview-message" id="preview-message">
+              <p>No dataset file is available to preview yet. The preview will show actual column names and records from the published TSV; no sample data is fabricated.</p>
+            </div>
+            <div class="table-scroll">
+              <table class="preview-table" id="preview-table" hidden>
+                <caption class="sr-only">Preview of the published dataset</caption>
+                <thead></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="documentation">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">03 / Documentation</p>
+              <h2>Understand<br>the data.</h2>
+            </div>
+            <p class="section-lead">Definitions and methodology are essential to responsible reuse. They will be published here when the research team supplies verified documentation.</p>
+          </div>
+          <div class="docs-grid">
+            <article class="doc-card">
+              <span class="number">A</span>
+              <h3>Variables</h3>
+              <p>A variable dictionary has not been supplied. Field names and definitions will be shown here from verified documentation.</p>
+            </article>
+            <article class="doc-card">
+              <span class="number">B</span>
+              <h3>Definitions</h3>
+              <p>Terms, coding rules, and category definitions are awaiting source material from the project team.</p>
+            </article>
+            <article class="doc-card">
+              <span class="number">C</span>
+              <h3>Methodology</h3>
+              <p>Collection, processing, and quality-control methods are not yet documented in this repository.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt" id="visualizations">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">04 / Explore</p>
+              <h2>See the data.</h2>
+            </div>
+            <p class="section-lead">Exploratory charts are generated only from published data. Numeric distributions will appear here when the verified TSV file is available.</p>
+          </div>
+          <div class="visuals-layout">
+            <article class="chart-card">
+              <h3 id="chart-title">Dataset overview</h3>
+              <p id="chart-subtitle">A chart will be generated from the published dataset when available.</p>
+              <div class="chart-placeholder" id="chart-message" role="status">
+                <p>No dataset is available to chart yet. Charts will be computed from actual published values rather than illustrative or invented results.</p>
+              </div>
+              <div id="numeric-chart" hidden></div>
+            </article>
+            <aside class="chart-aside">
+              <h3>About these charts</h3>
+              <p>Charts are descriptive summaries of the published TSV only. They are not inferential analyses and do not replace the documented methodology or the source data.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="citation">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">05 / Citation</p>
+              <h2>Give credit<br>to the research.</h2>
+            </div>
+            <p class="section-lead">Please cite the dataset when using it in publications, presentations, or other research outputs.</p>
+          </div>
+          <div class="citation-box">
+            <p>A verified citation has not yet been provided. Please contact the project maintainers for citation details before citing the dataset.</p>
+          </div>
+          <p class="citation-help">The project team should add the authoritative creator names, publication year, dataset title, version, repository or publisher, and persistent identifier when available.</p>
+        </div>
+      </section>
+
+      <section class="section alt" id="contributions">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">06 / Contributions</p>
+              <h2>Help improve<br>the resource.</h2>
+            </div>
+            <p class="section-lead">Careful corrections and documented additions help make research data more useful. Please include enough context for maintainers to review a proposed change.</p>
+          </div>
+          <div class="contribution-grid">
+            <article class="contribution-card">
+              <h3>Suggest a correction</h3>
+              <p>Report a suspected issue with a file or its documentation. Identify the affected location and explain the evidence for the proposed correction. Do not include sensitive data.</p>
+              <a class="text-link" href="https://github.com/elisavetas/FILMS-Dataset/issues/new">Open a GitHub issue <span aria-hidden="true">↗</span></a>
+            </article>
+            <article class="contribution-card">
+              <h3>Propose an addition</h3>
+              <p>Contact the maintainers before proposing additional data. Include its provenance, collection and processing details, and any relevant permissions or restrictions. Submit reviewed proposals as a pull request.</p>
+              <a class="text-link" href="https://github.com/elisavetas/FILMS-Dataset/pulls">Browse pull requests <span aria-hidden="true">↗</span></a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>FILMS Dataset · Public-facing research data resource<br>Website created with AI assistance using GitHub Copilot; the dataset was not AI-generated.<br>Project details and data will be updated as verified materials become available.</p>
+        <a class="back-top" href="#home">Back to top ↑</a>
+      </div>
+    </footer>
+  </body>
+</html>
