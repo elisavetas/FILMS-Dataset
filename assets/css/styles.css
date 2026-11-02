@@ -159,6 +159,12 @@ a:focus-visible, button:focus-visible { outline: 3px solid #78bca6; outline-offs
 
 @media (max-width: 480px) {
   .container { width: calc(100% - 28px); }
+  .wordmark-logo {
+      width: 35px;
+      height: 35px;
+      object-fit: contain;
+      flex: none;
+    }
   .wordmark-copy strong { font-size: 15px; }
   .wordmark-copy span { font-size: 8px; }
   .hero { padding: 55px 0 60px; }
