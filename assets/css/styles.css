@@ -37,6 +37,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #78bca6; outline-offs
 
 .nav-shell { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 30px; }
 .wordmark { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+.wordmark-logo { width: 35px; height: 35px; object-fit: contain; flex: none; }
 .wordmark-mark { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid var(--green); color: var(--green); font-family: var(--serif); font-size: 19px; font-weight: 700; }
 .wordmark-copy { display: grid; gap: 2px; }
 .wordmark-copy strong { font-family: var(--serif); font-size: 17px; font-weight: 600; letter-spacing: .01em; }
@@ -159,12 +160,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid #78bca6; outline-offs
 
 @media (max-width: 480px) {
   .container { width: calc(100% - 28px); }
-  .wordmark-logo {
-      width: 35px;
-      height: 35px;
-      object-fit: contain;
-      flex: none;
-    }
   .wordmark-copy strong { font-size: 15px; }
   .wordmark-copy span { font-size: 8px; }
   .hero { padding: 55px 0 60px; }
